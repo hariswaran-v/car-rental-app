@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { assets, dummyMyBookingsData } from "../assets/assets";
+import { assets } from "../assets/assets";
 import Title from "../components/Title";
+import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const MyBookings = () => {
+  const { axios, user, currency } = useAppContext();
   const [bookings, setBookings] = useState([]);
-  const currency = import.meta.env.VITE_CURRENCY; // fixed typo from VIT_CURRENCY
 
   const fetchMyBookings = async () => {
-    setBookings(dummyMyBookingsData);
+    try {
+      const { data } = await axios.get("/api/bookings/user");
+      if (data.success) {
+        setBookings(data.bookings);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
-    fetchMyBookings();
-  }, []);
+    user && fetchMyBookings();
+  }, [user]);
 
   return (
-    <section className="px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 text-sm max-w-full mx-auto">
+    <section className="px-6 py-8 md:px-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 text-sm max-w-full mx-auto">
       <Title
         title="My Bookings"
         subTitle="View and manage your all car bookings"
@@ -70,8 +81,8 @@ const MyBookings = () => {
                 />
                 <div>
                   <p className="text-gray-500">Rental Period</p>
-                  <p>
-                    {booking.pickupDate.split("T")[0]} To{" "}
+                  <p className="bg-blue-100 text-blue-700 px-3 py-1.5 rounded-md font-medium ">
+                    {booking.pickupDate.split("T")[0]} To {"  "}
                     {booking.returnDate.split("T")[0]}
                   </p>
                 </div>

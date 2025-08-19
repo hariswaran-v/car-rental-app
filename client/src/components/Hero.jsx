@@ -21,7 +21,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center gap-14 bg-light text-center px-4">
+    <div className="min-h-screen pb-32 pt-40 flex flex-col items-center justify-center gap-14 bg-light text-center px-4">
       {/* Heading */}
       <motion.h1
         className="text-4xl md:text-5xl font-bold tracking-tight text-gray-800"

@@ -2,18 +2,46 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-gray-500">
-      <div className="flex flex-wrap justify-between items-start gap-8 pb-6 border-borderColor border-b">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="px-6 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-gray-500"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="flex flex-wrap justify-between items-start gap-8 pb-6 border-borderColor border-b"
+      >
         <div>
-          <img src={assets.logo} alt="logo" className="h-8 md:h-9" />
-          <p className="max-w-80 mt-3">
+          <motion.img
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            src={assets.logo}
+            alt="logo"
+            className="h-8 md:h-9"
+          />
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="max-w-80 mt-3"
+          >
             Premium car rental service offering a wide selection of luxury and
             everyday vehicles to suit all your driving needs.
-          </p>
-          <div className="flex items-center gap-5 mt-6 text-gray-600">
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex items-center gap-5 mt-6 text-gray-600"
+          >
             <a
               href="https://www.linkedin.com/in/hariswaran-venkatesh/"
               target="_blank"
@@ -48,64 +76,76 @@ const Footer = () => {
             >
               <HiOutlineMail />
             </a>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="flex flex-wrap justify-between w-1/2 gap-8"
+        >
+          {/* Keep the rest of your footer content unchanged */}
+          <div>
+            <h2 className="text-base font-medium text-gray-800 uppercase">
+              Quick Links
+            </h2>
+            <ul className="mt-3 flex flex-col gap-1.5 ">
+              <li>
+                <a href="#">Home</a>
+              </li>
+              <li>
+                <a href="#">Browse Cars</a>
+              </li>
+              <li>
+                <a href="#">List Your Car</a>
+              </li>
+              <li>
+                <a href="#">About Us</a>
+              </li>
+            </ul>
           </div>
-        </div>
 
-        {/* Keep the rest of your footer content unchanged */}
-        <div>
-          <h2 className="text-base font-medium text-gray-800 uppercase">
-            Quick Links
-          </h2>
-          <ul className="mt-3 flex flex-col gap-1.5 ">
-            <li>
-              <a href="#">Home</a>
-            </li>
-            <li>
-              <a href="#">Browse Cars</a>
-            </li>
-            <li>
-              <a href="#">List Your Car</a>
-            </li>
-            <li>
-              <a href="#">About Us</a>
-            </li>
-          </ul>
-        </div>
+          <div>
+            <h2 className="text-base font-medium text-gray-800 uppercase">
+              Resources
+            </h2>
+            <ul className="mt-3 flex flex-col gap-1.5 ">
+              <li>
+                <a href="#">Help Center</a>
+              </li>
+              <li>
+                <a href="#">Terms of Service</a>
+              </li>
+              <li>
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#">Insurance</a>
+              </li>
+            </ul>
+          </div>
 
-        <div>
-          <h2 className="text-base font-medium text-gray-800 uppercase">
-            Resources
-          </h2>
-          <ul className="mt-3 flex flex-col gap-1.5 ">
-            <li>
-              <a href="#">Help Center</a>
-            </li>
-            <li>
-              <a href="#">Terms of Service</a>
-            </li>
-            <li>
-              <a href="#">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#">Insurance</a>
-            </li>
-          </ul>
-        </div>
+          <div>
+            <h2 className="text-base font-medium text-gray-800 uppercase">
+              Contact
+            </h2>
+            <ul className="mt-3 flex flex-col gap-1.5 ">
+              <li>1233 Luxury Drive</li>
+              <li>San Francisco, CA 94107</li>
+              <li>+1 234567890</li>
+              <li>info@example.com</li>
+            </ul>
+          </div>
+        </motion.div>
+      </motion.div>
 
-        <div>
-          <h2 className="text-base font-medium text-gray-800 uppercase">
-            Contact
-          </h2>
-          <ul className="mt-3 flex flex-col gap-1.5 ">
-            <li>1233 Luxury Drive</li>
-            <li>San Francisco, CA 94107</li>
-            <li>+1 234567890</li>
-            <li>info@example.com</li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-2 items-center justify-between py-5">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="flex flex-col md:flex-row gap-2 items-center justify-between py-5"
+      >
         <p>© {new Date().getFullYear()} Brand. All rights reserved.</p>
         <ul className="flex items-center gap-4">
           <li>
@@ -120,8 +160,8 @@ const Footer = () => {
             <a href="#">Cookies</a>
           </li>
         </ul>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
