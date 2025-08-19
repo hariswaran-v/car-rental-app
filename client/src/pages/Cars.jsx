@@ -1,10 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets, dummyCarData } from "../assets/assets";
 import Title from "../components/Title";
 import CarCard from "../components/CarCard";
+import { useSearchParams } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const Cars = () => {
+  // Getting search params from url
+  const [searchParams] = useSearchParams();
+
+  const pickupLocation = searchParams.get("pickupLocation");
+  const pickupDate = searchParams.get("pickupDate");
+  const returnDate = searchParams.get("returnDate");
+
+  const { cars, axios } = useAppContext();
   const [input, setInput] = useState("");
+  const isSearchData = pickupLocation && pickupDate && returnDate;
+
+  const [filteredCars, setFilteredCars] = useState(isSearchData ? [] : cars);
+
+  const applyFilter = async () => {
+    if (input === "") {
+      setFilteredCars(cars);
+      return null;
+    }
+    const filtered = cars.slice().filter((car) => {
+      return (
+        car.brand.toLowerCase().includes(input.toLowerCase()) ||
+        car.model.toLowerCase().includes(input.toLowerCase()) ||
+        car.category.toLowerCase().includes(input.toLowerCase()) ||
+        car.transmission.toLowerCase().includes(input.toLowerCase())
+      );
+    });
+    setFilteredCars(filtered);
+  };
+
+  const searchCarAvailability = async () => {
+    const { data } = await axios.post("/api/bookings/check-availability", {
+      location: pickupLocation,
+      pickupDate,
+      returnDate,
+    });
+    if (data.success) {
+      setFilteredCars(data.availableCars);
+      if (data.availableCars.length === 0) {
+        toast("No ars available");
+      }
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    isSearchData && searchCarAvailability();
+  }, [pickupLocation, pickupDate, returnDate]);
+
+  useEffect(() => {
+    cars.length > 0 && !isSearchData && applyFilter();
+  }, [input, cars]);
   return (
     <div>
       {/* Available Cars */}
@@ -17,23 +70,27 @@ const Cars = () => {
           <img src={assets.search_icon} alt="" className="w-4.5 h-4.5 mr-2" />
 
           <input
-            onClick={(e) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             value={input}
             type="text"
             placeholder="Search by make, model, or features"
             className="w-full h-full outline-none text-gray-500"
           />
 
-          <img src={assets.filter_icon} alt="" className="w-4.5 h-4.5 ml-2" />
+          <img
+            src={assets.filter_icon}
+            alt=""
+            className="w-4.5 h-4.5 ml-2 cursor-pointer"
+          />
         </div>
       </div>
       {/* All Cars */}
       <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10">
         <p className="text-gray-900 xl:px-20 max-w-7xl mx-auto">
-          Showing {dummyCarData.length} Cars
+          Showing {filteredCars.length} Cars
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto">
-          {dummyCarData.map((car, i) => (
+          {filteredCars.map((car, i) => (
             <div key={i}>
               <CarCard car={car} />
             </div>

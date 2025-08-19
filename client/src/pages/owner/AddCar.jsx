@@ -282,6 +282,7 @@ const AddCar = () => {
                     <option value="">Select category</option>
                     <option value="Sedan">Sedan</option>
                     <option value="SUV">SUV</option>
+                    <option value="SUV">XUV</option>
                     <option value="Hatchback">Hatchback</option>
                     <option value="Convertible">Convertible</option>
                     <option value="Coupe">Coupe</option>

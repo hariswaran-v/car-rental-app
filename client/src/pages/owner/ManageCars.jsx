@@ -131,7 +131,7 @@ const ManageCars = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left text-sm">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-gray-50 border-b border-gray-200 ">
               <tr>
                 <th className="p-4 font-semibold text-gray-700">Cars List</th>
                 <th className="p-4 font-semibold text-gray-700 max-md:hidden">
@@ -186,7 +186,7 @@ const ManageCars = () => {
                   </td>
                   <td className="p-4 max-md:hidden">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      className={`inline-block w-28 text-center px-3 py-1 rounded-full text-xs font-medium ${
                         car.isAvailable
                           ? "bg-green-100 text-green-700 border border-green-200"
                           : "bg-red-100 text-red-700 border border-red-200"
