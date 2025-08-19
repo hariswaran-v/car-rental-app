@@ -68,43 +68,29 @@ export const getOwnerCars = async (req, res) => {
 // API to Toggle Car Availability
 export const toggleCarAvailability = async (req, res) => {
   try {
-    const { _id } = req.user;
-    const { carId } = req.body;
-    const car = await Car.findById({ carId });
-
-    // Checking is car belongs to the user
-    if (car.owner.toString() !== _id.toString()) {
-      return res.json({ success: false, message: "Unauthorized" });
-    }
+    const carId = req.params.id; // ✅ must be req.params
+    const car = await Car.findById(carId);
+    if (!car) return res.status(404).json({ message: "Car not found" });
 
     car.isAvailable = !car.isAvailable;
     await car.save();
-    res.json({ success: true, message: "Availability Toggled" });
+
+    res.json({ success: true, message: "Car availability updated", car });
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
 // API to Delete a car
 export const deleteCar = async (req, res) => {
   try {
-    const { _id } = req.user;
-    const { carId } = req.body;
-    const car = await Car.findById(carId);
+    const carId = req.params.id; // ✅ must be req.params
+    const car = await Car.findByIdAndDelete(carId);
+    if (!car) return res.status(404).json({ message: "Car not found" });
 
-    // Checking is car belongs to the user
-    if (car.owner.toString() !== _id.toString()) {
-      return res.json({ success: false, message: "Unauthorized" });
-    }
-
-    car.owner = null;
-    car.isAvailable = false;
-    await car.save();
-    res.json({ success: true, message: "Car Removed" });
+    res.json({ success: true, message: "Car deleted successfully" });
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
