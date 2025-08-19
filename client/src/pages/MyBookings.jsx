@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import Title from "../components/Title";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const MyBookings = () => {
   const { axios, user, currency } = useAppContext();
@@ -26,7 +27,12 @@ const MyBookings = () => {
   }, [user]);
 
   return (
-    <section className="px-6 py-8 md:px-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 text-sm max-w-full mx-auto">
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="px-6 py-8 md:px-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 text-sm max-w-full mx-auto"
+    >
       <Title
         title="My Bookings"
         subTitle="View and manage your all car bookings"
@@ -36,7 +42,10 @@ const MyBookings = () => {
       {/* Outer grid to handle 2 cards per row */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
         {bookings.map((booking, i) => (
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1, duration: 0.4 }}
             key={booking._id}
             className="grid grid-cols-1 md:grid-cols-4 gap-6 p-6 border border-borderColor rounded-lg"
           >
@@ -112,10 +121,10 @@ const MyBookings = () => {
                 <p>Booked on {booking.createdAt.split("T")[0]}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

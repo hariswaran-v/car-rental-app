@@ -5,6 +5,7 @@ import CarCard from "../components/CarCard";
 import { useSearchParams } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Cars = () => {
   // Getting search params from url
@@ -61,12 +62,22 @@ const Cars = () => {
   return (
     <div>
       {/* Available Cars */}
-      <div className="flex flex-col items-center py-20 bg-light max-md:px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+        className="pt-36 flex flex-col items-center py-20 bg-light max-md:px-4"
+      >
         <Title
           title="Available Cars"
           subTitle="Browse our selection of premium vehicles available for your next adventure"
         />
-        <div className="flex items-center bg-white px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="flex items-center bg-white px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow"
+        >
           <img src={assets.search_icon} alt="" className="w-4.5 h-4.5 mr-2" />
 
           <input
@@ -82,21 +93,31 @@ const Cars = () => {
             alt=""
             className="w-4.5 h-4.5 ml-2 cursor-pointer"
           />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       {/* All Cars */}
-      <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+        className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10"
+      >
         <p className="text-gray-900 xl:px-20 max-w-7xl mx-auto">
           Showing {filteredCars.length} Cars
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto">
           {filteredCars.map((car, i) => (
-            <div key={i}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * indexedDB, duration: 0.4 }}
+              key={i}
+            >
               <CarCard car={car} />
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
