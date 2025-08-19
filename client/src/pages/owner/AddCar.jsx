@@ -67,6 +67,7 @@ const AddCar = () => {
       if (data.success) {
         toast.success(data.message);
         setImage(null);
+        setImagePreview(null);
         setCar({
           brand: "",
           model: "",
@@ -247,13 +248,12 @@ const AddCar = () => {
                 {/* Price */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    <DollarSign className="w-4 h-4 inline mr-1" />
                     Price/Day ({currency})
                   </label>
                   <input
                     type="number"
-                    placeholder="100"
-                    min="1"
+                    placeholder="1000"
+                    min="1200"
                     className={inputClasses("pricePerDay")}
                     value={car.pricePerDay}
                     onChange={(e) =>

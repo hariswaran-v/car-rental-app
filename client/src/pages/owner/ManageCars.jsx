@@ -29,15 +29,24 @@ const ManageCars = () => {
 
   // toggle
   const handleToggleCar = async (carId) => {
+    // Optimistic UI
+    setCars((prev) =>
+      prev.map((car) =>
+        car._id === carId ? { ...car, isAvailable: !car.isAvailable } : car
+      )
+    );
+
     try {
-      setIsLoading(true);
-      await axios.put(`/api/owner/toggle-car/${carId}`); // ✅ id in URL
+      await axios.put(`/api/owner/toggle-car/${carId}`);
       toast.success("Car availability updated");
-      fetchOwnerCars(); // refresh
     } catch (error) {
+      // rollback if error
+      setCars((prev) =>
+        prev.map((car) =>
+          car._id === carId ? { ...car, isAvailable: !car.isAvailable } : car
+        )
+      );
       toast.error(error.response?.data?.message || "Error updating car");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -191,7 +200,7 @@ const ManageCars = () => {
                       <button
                         onClick={() => handleToggleCar(car._id)}
                         disabled={isLoading}
-                        className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group/btn"
+                        className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group/btn cursor-pointer"
                       >
                         {car.isAvailable ? (
                           <EyeOff className="w-4 h-4 text-gray-600 group-hover/btn:text-orange-600" />
@@ -201,7 +210,7 @@ const ManageCars = () => {
                       </button>
                       <button
                         onClick={() => handleDeleteCar(car._id)}
-                        className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group/btn"
+                        className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group/btn cursor-pointer"
                       >
                         <Trash2 className="w-4 h-4 text-gray-600 group-hover/btn:text-red-600" />
                       </button>

@@ -27,14 +27,18 @@ const Navbar = () => {
 
   return (
     <div
-      className={`flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 text-gray-600 border-b border-borderColor relative transition-all ${
-        location.pathname === "/" && "bg-light"
+      className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 text-gray-600 border-b border-borderColor transition-all ${
+        location.pathname === "/" ? "bg-light" : "bg-white"
       }`}
     >
-      <NavLink to="/">
+      <NavLink
+        to="/"
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
         <img src={assets.logo} alt="logo" className="h-8" />
       </NavLink>
-
       <div
         className={`max-sm:fixed max-sm:h-screen max-sm:w-full max-sm:top-16 max-sm:border-t border-borderColor right-0 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 max-sm:p-4 transition-all duration-300 z-50 ${
           location.pathname === "/" ? "bg-light" : "bg-white"
