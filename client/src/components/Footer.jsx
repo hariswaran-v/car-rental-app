@@ -7,38 +7,48 @@ import { motion } from "framer-motion";
 const Footer = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="bg-gray-200 px-6 pt-10 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-gray-500"
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="relative bg-gradient-to-br from-gray-100 via-white to-gray-100 px-6 pt-16 md:px-16 lg:px-24 xl:px-32 mt-40 text-sm text-gray-600 rounded-t-3xl shadow-2xl overflow-hidden"
     >
+      {/* Animated gradient orbs (like newsletter style) */}
+      <div className="absolute inset-0 pointer-events-none opacity-30">
+        <div className="absolute top-10 left-10 w-40 h-40 bg-indigo-300 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-52 h-52 bg-purple-300 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      {/* Top Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="flex flex-wrap justify-between items-start gap-8 pb-6 border-borderColor border-b"
+        className="relative z-10 flex flex-wrap justify-between items-start gap-10 pb-10 border-borderColor border-b"
       >
+        {/* Logo & About */}
         <div>
           <motion.img
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             src={assets.logo}
             alt="logo"
-            className="h-8 md:h-9"
+            className="h-9"
           />
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="max-w-80 mt-3"
+            className="max-w-80 mt-4 text-gray-600 leading-relaxed"
           >
             Premium car rental service offering a wide selection of luxury and
             everyday vehicles to suit all your driving needs.
           </motion.p>
+
+          {/* Socials */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="flex items-center gap-5 mt-6 text-gray-600"
           >
@@ -47,7 +57,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="hover:text-blue-600 transition-colors text-2xl"
+              className="hover:text-blue-600 transition-all duration-300 text-2xl hover:scale-110"
             >
               <FaLinkedin />
             </a>
@@ -56,7 +66,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="hover:text-gray-800 transition-colors text-2xl"
+              className="hover:text-gray-900 transition-all duration-300 text-2xl hover:scale-110"
             >
               <FaGithub />
             </a>
@@ -65,100 +75,84 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="hover:text-pink-600 transition-colors text-2xl"
+              className="hover:text-pink-600 transition-all duration-300 text-2xl hover:scale-110"
             >
               <FaInstagram />
             </a>
             <a
               href="mailto:hariswaranvenkatesh@gmail.com"
               aria-label="Email"
-              className="hover:text-red-600 transition-colors text-2xl"
+              className="hover:text-red-600 transition-all duration-300 text-2xl hover:scale-110"
             >
               <HiOutlineMail />
             </a>
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex flex-wrap justify-between w-1/2 gap-8"
-        >
-          {/* Keep the rest of your footer content unchanged */}
-          <div>
-            <h2 className="text-base font-medium text-gray-800 uppercase">
-              Quick Links
-            </h2>
-            <ul className="mt-3 flex flex-col gap-1.5 ">
-              <li>
-                <a href="#">Home</a>
-              </li>
-              <li>
-                <a href="#">Browse Cars</a>
-              </li>
-              <li>
-                <a href="#">List Your Car</a>
-              </li>
-              <li>
-                <a href="#">About Us</a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-base font-medium text-gray-800 uppercase">
-              Resources
-            </h2>
-            <ul className="mt-3 flex flex-col gap-1.5 ">
-              <li>
-                <a href="#">Help Center</a>
-              </li>
-              <li>
-                <a href="#">Terms of Service</a>
-              </li>
-              <li>
-                <a href="#">Privacy Policy</a>
-              </li>
-              <li>
-                <a href="#">Insurance</a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-base font-medium text-gray-800 uppercase">
-              Contact
-            </h2>
-            <ul className="mt-3 flex flex-col gap-1.5 ">
-              <li>1233 Luxury Drive</li>
-              <li>San Francisco, CA 94107</li>
-              <li>+1 234567890</li>
-              <li>info@example.com</li>
-            </ul>
-          </div>
-        </motion.div>
+        {/* Links Section */}
+        <div className="flex flex-wrap justify-between w-full md:w-1/2 gap-8">
+          {[
+            {
+              title: "Quick Links",
+              links: ["Home", "Browse Cars", "List Your Car", "About Us"],
+            },
+            {
+              title: "Resources",
+              links: [
+                "Help Center",
+                "Terms of Service",
+                "Privacy Policy",
+                "Insurance",
+              ],
+            },
+            {
+              title: "Contact",
+              links: [
+                "1233 Luxury Drive",
+                "San Francisco, CA 94107",
+                "+1 234567890",
+                "info@example.com",
+              ],
+            },
+          ].map((section, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 + i * 0.2 }}
+            >
+              <h2 className="text-base font-semibold text-gray-800 uppercase">
+                {section.title}
+              </h2>
+              <ul className="mt-3 flex flex-col gap-2 text-gray-600">
+                {section.links.map((link, idx) => (
+                  <li
+                    key={idx}
+                    className="hover:text-indigo-600 hover:translate-x-1 transition-all duration-300 cursor-pointer"
+                  >
+                    {link}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
       </motion.div>
 
+      {/* Bottom Section */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="flex flex-col md:flex-row gap-2 items-center justify-between py-5"
+        className="relative z-10 flex flex-col md:flex-row gap-3 items-center justify-between py-6 text-gray-500"
       >
         <p>© {new Date().getFullYear()} Brand. All rights reserved.</p>
         <ul className="flex items-center gap-4">
-          <li>
-            <a href="#">Privacy</a>
-          </li>
+          <li className="hover:text-indigo-600 transition-colors">Privacy</li>
           <li>|</li>
-          <li>
-            <a href="#">Terms</a>
-          </li>
+          <li className="hover:text-indigo-600 transition-colors">Terms</li>
           <li>|</li>
-          <li>
-            <a href="#">Cookies</a>
-          </li>
+          <li className="hover:text-indigo-600 transition-colors">Cookies</li>
         </ul>
       </motion.div>
     </motion.div>
